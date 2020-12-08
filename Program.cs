@@ -5,117 +5,68 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PartB
+namespace PartA
 {
     class Program
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello World!");
+            var inputs = new List<IdentityInput>();
+            inputs.Add(new IdentityInput() { A = false, D = false, X = false });
+            inputs.Add(new IdentityInput() { A = false, D = false, X = false });
+            inputs.Add(new IdentityInput() { A = false, D = true, X = true });
+            inputs.Add(new IdentityInput() { A = false, D = true, X = true });
+            inputs.Add(new IdentityInput() { A = true, D = false, X = true });
+            inputs.Add(new IdentityInput() { A = true, D = false, X = false });
+            inputs.Add(new IdentityInput() { A = true, D = true, X = true });
+            inputs.Add(new IdentityInput() { A = true, D = true, X = true });
 
-            var orGate = new OR();
             var andGate = new AND();
-            var notGate = new NOT();
-            notGate.SetInputA(false);
-            andGate.SetInputA(true);
-            andGate.SetInputB(true);
-            var restOfAndGate = andGate.Output.State;
-            orGate.SetInputA(true);
-            orGate.SetInputB(restOfAndGate);
-            var result = orGate.Output.State;
-            var result2 = notGate.Output.State;
-            //List<IndentityInput> inputs = BuildtruthTable();
-            var inputs = new List<IndentityInput>();
-            inputs.Add(new IndentityInput() { X = false, Y = false });
-            inputs.Add(new IndentityInput() { X = false, Y = true });
-            inputs.Add(new IndentityInput() { X = true, Y = false });
-            inputs.Add(new IndentityInput() { X = true, Y = true });
-            
 
-            // Step 1 complete the rest of the input through table values
-
-            // Step 2 now loop through each item rown in the truth table
-            ProcessLogicGates(inputs);
             foreach (var item in inputs)
             {
-
                 var identity = new Identity();
-
+                identity.SetInputD = item.D;
+                identity.SetInputA = item.A;
                 identity.SetInputX = item.X;
-                identity.SetInputY = item.Y;
-
-                //var output = identity.Validate();
-                Console.WriteLine($" A = {identity.SetInputX}," +
-                    $" B = {identity.SetInputY}, " +
-                    $" OutPut= {output}");
-                //var resutOfAndGate = identity.Output;
-            }
-            
-            //x + y  = x * y, x * y = x + y 
-            Console.ReadLine();
-
-        }
-
-        private static void ProcessLogicGates(List<IndentityInput> inputs)
-        {
-            foreach (var item in inputs)
-            {
-
-                var identity = new Identity();
-
-                identity.SetInputX = item.X;
-                identity.SetInputY = item.Y;
 
                 var output = identity.Validate();
-                Console.WriteLine($" A = {identity.SetInputX}," +
-                    $" B = {identity.SetInputY}, " +
-                    $" OutPut= {output}");
-                var resutOfAndGate = identity.Output;
+                Console.WriteLine($" D = {identity.SetInputD }," +
+                    $" A = {identity.SetInputA}, " +
+                   $" X= { identity.SetInputX}, " +
+                   $"OutPut = {output}");
             }
+            Console.ReadLine();
         }
-
-        private static List<IndentityInput> BuildtruthTable()
+        class IdentityInput
         {
-            var inputs = new List<IndentityInput>();
-            inputs.Add(new IndentityInput() { X = false, Y = false });
-            inputs.Add(new IndentityInput() { X = false, Y = true });
-            inputs.Add(new IndentityInput() { X = true, Y = false });
-            inputs.Add(new IndentityInput() { X = true, Y = true });
-            return inputs;
-        }
+            public bool D { get; set; }
+            public bool A { get; set; }
+            public bool X { get; set; }
 
+        }
         class Identity
         {
+            public bool SetInputD { get; set; }
+            public bool SetInputA { get; set; }
             public bool SetInputX { get; set; }
+            bool result;
+            public bool Validate()
+            { //var result;
+                if
+                (result == true)
 
-            public bool SetInputY { get; set; }
 
-            public bool Output { get; set; }
+                { return result; }
+                else
+                    return false;
 
-           /* public bool Validate()
-            {
-                var result = true;
-                /*if (SetInputX == SetInputY)
-                {
-                    if (SetInputX == true) 
-                    { return true; }
-                    else { return false; }
-                }*/
-                /*var tester = new AND();
-                tester.SetInputA(true);
-                tester.SetInputB(true);
-                result = tester.Output;
-
-                return result;*/
-
-            }*/
+                //Console.Read();
+            }
+            //Console.ReadKey(true);
+                
         }
-        internal class IndentityInput
-        {
-
-            public bool X { get; set; }
-            public bool Y { get; set; }
-
-        }
+        //Console.Read();
     }
 }
-
